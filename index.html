@@ -345,6 +345,38 @@
       .hero-img-wrap { display: none; }
       .about-grid, .edu-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
+      .hamburger {
+        display: flex; flex-direction: column; gap: 5px;
+        background: none; border: none; cursor: pointer; padding: 6px;
+      }
+      .hamburger span {
+        display: block; width: 22px; height: 2px;
+        background: var(--text); border-radius: 2px;
+        transition: transform 0.3s, opacity 0.3s;
+      }
+      .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger.open span:nth-child(2) { opacity: 0; }
+      .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+      .mobile-nav {
+        display: none;
+        position: fixed; top: 61px; left: 0; right: 0;
+        background: var(--nav-bg);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+        padding: 16px 6%; z-index: 998;
+        flex-direction: column; gap: 4px;
+      }
+      .mobile-nav.open { display: flex; }
+      .mobile-nav a {
+        color: var(--text); text-decoration: none;
+        font-size: 0.95rem; font-weight: 500;
+        padding: 10px 0; border-bottom: 1px solid var(--border);
+      }
+      .mobile-nav a:last-child { border-bottom: none; }
+    }
+    @media (min-width: 901px) {
+      .hamburger { display: none; }
+      .mobile-nav { display: none !important; }
     }
     @media (max-width: 600px) {
       .projects-grid { grid-template-columns: 1fr; }
@@ -418,8 +450,21 @@
   </ul>
   <div class="nav-right">
     <button class="theme-btn" id="themeBtn" title="Toggle theme"></button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#skills" onclick="closeMobileNav()">Skills</a>
+  <a href="#experience" onclick="closeMobileNav()">Experience</a>
+  <a href="#projects" onclick="closeMobileNav()">Projects</a>
+  <a href="#education" onclick="closeMobileNav()">Education</a>
+  <a href="#contact" onclick="closeMobileNav()">Contact</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -431,8 +476,8 @@
         <span class="accent">Frontend</span> Developer
       </h1>
       <p class="hero-desc">
-        Trying new things, learning fast, coding smarter — React and Front-End at heart.
-        Turning ideas into responsive, interactive web experiences.
+        Building modern web experiences with React, Next.js, and TypeScript.
+        From responsive frontends to full-stack applications with Supabase and Firebase backends.
       </p>
       <div class="hero-btns">
         <a href="#projects" class="btn-main">View Projects ↓</a>
@@ -466,12 +511,12 @@
     </div>
     <div class="about-grid">
       <div class="about-text fade-in">
-        <p>Early in the journey, challenges in learning web development and mastering React could have been discouraging. Job rejections and skepticism fueled persistence, turning every obstacle into a stepping stone toward becoming a skilled Front-End developer.</p>
-        <p>Through dedication, hands-on projects, and continuous learning, opportunities emerged. Today, being a <strong>Front-End Trainee at DEPI</strong> under the Ministry of Communications and Information Technology (MCIT) reflects the growth that comes from perseverance and passion for building seamless user experiences.</p>
-        <p>Specialized in Front-End development with <strong>React, HTML, CSS, and JavaScript</strong>, complemented by strong OOP skills in Java and solid foundation in Algorithms using C. Technical versatility extends to understanding basic Back-End with PHP, enabling full-stack awareness when collaborating with teams.</p>
+        <p>Passionate about building real-world applications that solve actual problems. The journey from early experiments in HTML and CSS to shipping full-stack production applications has been shaped by persistence, hands-on learning, and a genuine love for the craft.</p>
+        <p>Currently a <strong>Front-End Trainee at DEPI</strong> under the Ministry of Communications and Information Technology (MCIT), working with <strong>React, TypeScript, Next.js, and Tailwind CSS</strong>. Recently built a full production e-commerce platform (Wrody) with Supabase, PostgreSQL, and authentication — and an AI-powered movie discovery app with Firebase and streaming LLM integration.</p>
+        <p>Strong foundation across the full stack: React Server Components, Supabase RLS, PostgreSQL functions, Firebase Auth and Realtime DB, REST API integration — complemented by solid programming fundamentals in Java, C, and algorithms.</p>
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-num">3+</div>
+            <div class="stat-num">5+</div>
             <div class="stat-label">Projects Built</div>
           </div>
           <div class="stat-card">
@@ -517,16 +562,26 @@
         <h4>⚡ Frontend</h4>
         <div class="tags">
           <span class="tag">HTML5</span><span class="tag">CSS3</span>
-          <span class="tag">JavaScript</span><span class="tag">React</span>
-          <span class="tag">Responsive Design</span><span class="tag">Component-Based UI</span>
+          <span class="tag">JavaScript</span><span class="tag">TypeScript</span>
+          <span class="tag">React</span><span class="tag">Next.js</span>
+          <span class="tag">Tailwind CSS</span><span class="tag">Responsive Design</span>
+        </div>
+      </div>
+      <div class="skill-category fade-in">
+        <h4>🗄 Backend & Database</h4>
+        <div class="tags">
+          <span class="tag">Supabase</span><span class="tag">PostgreSQL</span>
+          <span class="tag">Firebase</span><span class="tag">REST APIs</span>
+          <span class="tag">Authentication</span><span class="tag">RLS Security</span>
+          <span class="tag">Server Actions</span>
         </div>
       </div>
       <div class="skill-category fade-in">
         <h4>🛠 Tools & DevOps</h4>
         <div class="tags">
           <span class="tag">Git</span><span class="tag">GitHub</span>
-          <span class="tag">VS Code</span><span class="tag">NetBeans</span>
-          <span class="tag">CodeBlocks</span><span class="tag">API Integration</span>
+          <span class="tag">Vercel</span><span class="tag">VS Code</span>
+          <span class="tag">npm / Vite</span><span class="tag">API Integration</span>
         </div>
       </div>
       <div class="skill-category fade-in">
@@ -534,15 +589,7 @@
         <div class="tags">
           <span class="tag">Java (OOP)</span><span class="tag">C</span>
           <span class="tag">C++</span><span class="tag">Python</span>
-          <span class="tag">Database Fundamentals</span>
-        </div>
-      </div>
-      <div class="skill-category fade-in">
-        <h4>🤝 Soft Skills</h4>
-        <div class="tags">
-          <span class="tag">Team Collaboration</span><span class="tag">Problem Solving</span>
-          <span class="tag">Communication</span><span class="tag">Leadership</span>
-          <span class="tag">Clean Code</span>
+          <span class="tag">Algorithms & Data Structures</span>
         </div>
       </div>
     </div>
@@ -629,6 +676,91 @@
           </div>
           <div class="project-links">
             <a href="https://github.com/amrahmed25/HotelReservationSystem" target="_blank" class="proj-btn filled">⌥ GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wrody E-Commerce -->
+      <div class="project-card fade-in">
+        <div class="project-img">
+          <img src="wrody.png" alt="">
+         </div>
+        <div class="project-body">
+          <div class="project-type">Full-Stack · E-Commerce</div>
+          <div class="project-title">Wrody — Handmade Flower Shop</div>
+          <p class="project-desc">Production-ready Arabic e-commerce platform for a handmade flower brand. Full customer storefront with product search, cart, coupon codes, 3-step checkout, and order tracking — plus a complete admin dashboard with analytics, inventory, and order management. Server-side PostgreSQL pricing prevents price tampering.</p>
+          <div class="project-tech">
+            <span class="tag">Next.js 15</span><span class="tag">React 19</span>
+            <span class="tag">TypeScript</span><span class="tag">Tailwind CSS</span>
+            <span class="tag">Supabase</span><span class="tag">PostgreSQL</span>
+            <span class="tag">Auth</span><span class="tag">RLS</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/amrahmed25/wrodya" target="_blank" rel="noopener noreferrer" class="proj-btn">GitHub</a>
+            <a href="https://wrody-teal.vercel.app" target="_blank" rel="noopener noreferrer" class="proj-btn filled">Live Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MovieApp AI -->
+      <div class="project-card fade-in">
+        <div class="project-img">
+          <img src="movie.png" alt="">
+         </div>
+        <div class="project-body">
+          <div class="project-type">Full-Stack · AI-Powered</div>
+          <div class="project-title">MovieApp — AI Movie Discovery</div>
+          <p class="project-desc">AI-enhanced movie discovery platform featuring CineGuide, a streaming AI assistant recommending films through natural conversation. Browse and search the OMDb catalog, save favorites via Firebase, with a server-side Vite plugin streaming Claude/Gemini responses in real-time. Built on MVVM architecture.</p>
+          <div class="project-tech">
+            <span class="tag">React</span><span class="tag">TypeScript</span>
+            <span class="tag">Vite</span><span class="tag">Firebase Auth</span>
+            <span class="tag">Firebase Realtime DB</span><span class="tag">OMDb API</span>
+            <span class="tag">Claude AI</span><span class="tag">Gemini AI</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/amrahmed25/ai-capstone" target="_blank" rel="noopener noreferrer" class="proj-btn">GitHub</a>
+            <a href="https://ai-capstone-lime.vercel.app" target="_blank" rel="noopener noreferrer" class="proj-btn filled">Live Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- XO Game -->
+      <div class="project-card fade-in">
+        <div class="project-img">
+          <img src="xxxxx.png.png" alt="">
+         </div>
+        <div class="project-body">
+          <div class="project-type">Full-Stack · Web Game</div>
+          <div class="project-title">XO Game — Tic-Tac-Toe</div>
+          <p class="project-desc">Full-stack Tic-Tac-Toe web application with Supabase-backed user authentication (login &amp; register), responsive game UI with Tailwind CSS, turn-based game logic with win detection, and multi-page architecture covering auth and game flows. Includes software engineering system diagrams.</p>
+          <div class="project-tech">
+            <span class="tag">HTML5</span><span class="tag">CSS3</span>
+            <span class="tag">JavaScript</span><span class="tag">Tailwind CSS</span>
+            <span class="tag">Supabase</span><span class="tag">Auth</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/amrahmed25/X-O_Game" target="_blank" rel="noopener noreferrer" class="proj-btn">GitHub</a>
+            <a href="https://x-o-game-rho.vercel.app" target="_blank" rel="noopener noreferrer" class="proj-btn filled">Live Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student Assignments Showcase -->
+      <div class="project-card fade-in">
+        <div class="project-img">
+          <div class="no-img">📚</div>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Frontend · Education Tool</div>
+          <div class="project-title">Student Assignments Showcase</div>
+          <p class="project-desc">A static website for browsing student profiles and submitted coding assignments — built during the DEPI training program. Features a searchable student grid, individual profile pages via URL query strings, and a data-driven architecture managed from a single JS config file. Deployed on Vercel and GitHub Pages.</p>
+          <div class="project-tech">
+            <span class="tag">HTML5</span><span class="tag">CSS3</span>
+            <span class="tag">JavaScript</span><span class="tag">GitHub Pages</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/amrahmed25/msp" target="_blank" rel="noopener noreferrer" class="proj-btn">GitHub</a>
+            <a href="https://msp-gamma.vercel.app" target="_blank" rel="noopener noreferrer" class="proj-btn filled">Live Demo</a>
           </div>
         </div>
       </div>
